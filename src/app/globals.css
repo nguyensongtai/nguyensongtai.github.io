@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  /* Mono only styles labels and snippets, so the system face saves a font download. */
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+}
+
+@theme {
+  /* light editorial surface */
+  --color-paper: #f7f6f2;
+  --color-paper-2: #efede6;
+  --color-ink: #0c0c0d;
+  --color-ink-2: #3f3f46;
+  --color-muted: #63636b;
+  --color-line: #dedbd2;
+  --color-accent: #2140ff;
+  --color-accent-soft: #e3e7ff;
+
+  /* dark project showcases */
+  --color-night: #0b0d12;
+  --color-night-2: #11141b;
+  --color-night-3: #181c25;
+  --color-night-line: #262b37;
+  --color-night-text: #e7e9ef;
+  --color-night-muted: #8e94a4;
+  --color-electric: #6b86ff;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  section[id],
+  article[id] {
+    scroll-margin-top: 5.5rem;
+  }
+}
+
+@utility shell {
+  width: 100%;
+  max-width: 84rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @variant sm {
+    padding-inline: 2rem;
+  }
+  @variant lg {
+    padding-inline: 3rem;
+  }
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Hero copy reveals with CSS so the first paint never waits on JavaScript. */
+@keyframes rise {
+  from { transform: translateY(108%); }
+  to { transform: translateY(0); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.line-mask > span {
+  display: inline-block;
+  animation: rise 0.95s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 85ms + 60ms);
+}
+.fade-up {
+  animation: fade-up 0.9s var(--ease-out-expo) both;
+  animation-delay: var(--d, 0ms);
+}
+
+/* Data packets travelling along the render pipeline. */
+@keyframes travel {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+.caret::after {
+  content: "";
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: currentColor;
+  animation: blink 1s steps(1) infinite;
+}
+
+/* Pointer-following spotlight: only rendered for fine pointers that can hover. */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgb(107 134 255 / 0.16),
+    transparent 60%
+  );
+}
+@media (hover: hover) and (pointer: fine) {
+  .spotlight:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Footer signature: glyphs trace their outline, fill with ink, then the flourish
+   and the period follow. Hidden only once JS arms it (see Signature.tsx). */
+.sig .sig-glyph {
+  stroke: currentColor;
+  stroke-width: 0.9;
+  stroke-linejoin: round;
+}
+.sig .sig-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+/* "1 2" rather than "1": pathLength rounding can leave a sliver at the end of
+   multi-part glyphs (e.g. the dot of the i), so the gap gets extra slack. */
+.sig[data-armed] .sig-glyph { stroke-dasharray: 1 2; stroke-dashoffset: 1; fill-opacity: 0; }
+.sig[data-armed] .sig-swash-mask { stroke-dasharray: 1 2; stroke-dashoffset: 1; }
+.sig[data-armed] .sig-dot { transform: scale(0); }
+.sig[data-play] .sig-glyph {
+  animation:
+    sig-draw 0.8s var(--ease-out-expo) forwards calc(var(--i) * 110ms),
+    sig-ink 0.5s ease forwards calc(var(--i) * 110ms + 420ms);
+}
+.sig[data-play] .sig-swash-mask { animation: sig-draw 0.85s cubic-bezier(0.65, 0, 0.35, 1) forwards 1.7s; }
+.sig[data-play] .sig-dot { animation: sig-dot 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 2.45s; }
+.sig:focus-visible { outline-offset: 6px; }
+@keyframes sig-draw { to { stroke-dashoffset: 0; } }
+@keyframes sig-ink { to { fill-opacity: 1; } }
+@keyframes sig-dot { to { transform: scale(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes dash {
+  to { stroke-dashoffset: -12; }
+}
