@@ -13,7 +13,7 @@ export function AgentDiagram() {
         {nodes.map((n, i) => (
           <li key={n.id} className="relative md:pr-8">
             <div className="h-full rounded-xl border border-night-line bg-night-2 p-4">
-              <p className="font-mono text-[0.62rem] text-electric">{String(i + 1).padStart(2, "0")}</p>
+              <p className="font-mono text-[0.68rem] text-electric">{String(i + 1).padStart(2, "0")}</p>
               <p className="mt-2 font-medium text-white">{n.title}</p>
               <p className="mt-1.5 text-[0.82rem] leading-relaxed text-night-muted">{n.body}</p>
             </div>
@@ -30,7 +30,7 @@ export function AgentDiagram() {
           </li>
         ))}
       </ol>
-      <figcaption className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[0.66rem] text-night-muted">
+      <figcaption className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[0.7rem] text-night-muted">
         <span className="text-night-text">↩ streamed answer + cited sources back to the UI</span>
         <span aria-hidden>·</span>
         <span>conceptual flow</span>

@@ -32,7 +32,7 @@ function Calendar({ role }: { role: Role }) {
   return (
     <div className="grid gap-4 md:grid-cols-[1.5fr_1fr]">
       <div className="self-start overflow-x-auto rounded-lg border border-night-line">
-        <div className="grid min-w-[420px] grid-cols-[44px_repeat(5,1fr)] text-[0.66rem]">
+        <div className="grid min-w-[420px] grid-cols-[44px_repeat(5,1fr)] text-[0.7rem]">
           <span />
           {days.map((d) => (
             <span key={d} className="border-l border-night-line px-2 py-1.5 font-mono text-night-muted">{d}</span>
@@ -51,7 +51,7 @@ function Calendar({ role }: { role: Role }) {
                         onClick={() => setSelected(booking.id)}
                         aria-pressed={selected === booking.id}
                         className={cn(
-                          "absolute inset-x-1 top-1 z-10 rounded-md px-1.5 py-1 text-left text-[0.62rem] leading-tight text-night transition-[box-shadow,transform] hover:-translate-y-px",
+                          "absolute inset-x-1 top-1 z-10 rounded-md px-1.5 py-1 text-left text-[0.68rem] leading-tight text-night transition-[box-shadow,transform] hover:-translate-y-px",
                           selected === booking.id && "ring-2 ring-white/80",
                         )}
                         style={{
@@ -77,7 +77,7 @@ function Calendar({ role }: { role: Role }) {
         onSubmit={(e) => e.preventDefault()}
         aria-label="Booking details"
       >
-        <p className="font-mono text-[0.6rem] tracking-wider text-night-muted uppercase">Booking #{b.id}</p>
+        <p className="font-mono text-[0.68rem] tracking-wider text-night-muted uppercase">Booking #{b.id}</p>
         {[
           ["Client", b.client],
           ["Service", b.service],
@@ -85,7 +85,7 @@ function Calendar({ role }: { role: Role }) {
           ["Time", `${days[b.day]} · ${hours[b.start]}`],
         ].map(([label, value]) => (
           <label key={label} className="block">
-            <span className="text-[0.62rem] text-night-muted">{label}</span>
+            <span className="text-[0.68rem] text-night-muted">{label}</span>
             <input
               readOnly
               value={value}
@@ -103,7 +103,7 @@ function Calendar({ role }: { role: Role }) {
             </button>
           ) : null}
         </div>
-        {role === "staff" ? <p className="text-[0.62rem] text-night-muted">Staff can edit but not cancel bookings.</p> : null}
+        {role === "staff" ? <p className="text-[0.68rem] text-night-muted">Staff can edit but not cancel bookings.</p> : null}
       </form>
     </div>
   );
@@ -136,7 +136,7 @@ function BookingsTable({ role }: { role: Role }) {
     <div className="overflow-x-auto rounded-lg border border-night-line">
       <table className="w-full min-w-[440px] text-left text-[0.75rem]">
         <caption className="sr-only">Bookings this week, sortable</caption>
-        <thead className="bg-night-2 font-mono text-[0.6rem] tracking-wider text-night-muted">
+        <thead className="bg-night-2 font-mono text-[0.68rem] tracking-wider text-night-muted">
           <tr>
             {header("client", "Client")}
             {header("day", "When")}
@@ -177,7 +177,7 @@ export function SalonPreview() {
         <IllustrativeTag />
         <div className="flex flex-wrap items-center gap-4">
           <div role="group" aria-label="Tenant theme" className="flex items-center gap-2">
-            <span className="font-mono text-[0.6rem] tracking-wider text-night-muted uppercase">Tenant theme</span>
+            <span className="font-mono text-[0.68rem] tracking-wider text-night-muted uppercase">Tenant theme</span>
             {(Object.keys(themes) as Theme[]).map((t) => (
               <button
                 key={t}

@@ -4,7 +4,7 @@ import { cn } from "@/lib/cn";
 /** Every preview carries this label so nobody mistakes it for a production screenshot. */
 export function IllustrativeTag({ className }: { className?: string }) {
   return (
-    <p className={cn("font-mono text-[0.6rem] tracking-wider text-night-muted uppercase", className)}>
+    <p className={cn("font-mono text-[0.68rem] tracking-wider text-night-muted uppercase", className)}>
       Interactive recreation · sample data · not production UI
     </p>
   );
@@ -53,7 +53,7 @@ export function Segmented<T extends string>({
 }) {
   return (
     <div role="group" aria-label={label} className="flex items-center gap-2">
-      <span className="font-mono text-[0.6rem] tracking-wider text-night-muted uppercase">{label}</span>
+      <span className="font-mono text-[0.68rem] tracking-wider text-night-muted uppercase">{label}</span>
       <div className="flex rounded-full bg-night-3 p-0.5">
         {options.map((o) => (
           <button

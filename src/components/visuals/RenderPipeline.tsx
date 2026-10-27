@@ -76,7 +76,7 @@ export function RenderPipeline() {
                 aria-pressed={mode === m_}
                 onClick={() => choose(m_)}
                 className={cn(
-                  "rounded-full px-3 py-1 font-mono text-[0.66rem] uppercase tracking-wider transition-colors",
+                  "rounded-full px-3 py-1 font-mono text-[0.7rem] uppercase tracking-wider transition-colors",
                   mode === m_ ? "bg-night-text text-night" : "text-night-muted hover:text-night-text",
                 )}
               >
@@ -101,7 +101,7 @@ export function RenderPipeline() {
                 >
                   <span
                     className={cn(
-                      "grid h-9 w-9 place-items-center rounded-full border font-mono text-[0.62rem] transition-colors duration-300",
+                      "grid h-9 w-9 place-items-center rounded-full border font-mono text-[0.68rem] transition-colors duration-300",
                       stage === s.id
                         ? "border-electric bg-electric/15 text-white"
                         : after
@@ -111,7 +111,7 @@ export function RenderPipeline() {
                   >
                     {after ? "✓" : String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="font-mono text-[0.62rem] tracking-wide text-night-muted group-hover:text-night-text">
+                  <span className="font-mono text-[0.68rem] tracking-wide text-night-muted group-hover:text-night-text">
                     {s.label}
                   </span>
                 </button>
@@ -180,7 +180,7 @@ export function RenderPipeline() {
             <p className="mt-1.5 text-[0.78rem] text-night-text">{after ? "~40% lower than baseline" : "Baseline"}</p>
           </div>
         </div>
-        <p className="border-t border-night-line px-4 py-2.5 font-mono text-[0.6rem] leading-relaxed text-night-muted">
+        <p className="border-t border-night-line px-4 py-2.5 font-mono text-[0.68rem] leading-relaxed text-night-muted">
           moso.vn figures as stated on my CV. Lab scores are targets we keep improving.
         </p>
       </div>

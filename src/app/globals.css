@@ -1,31 +1,62 @@
 @import "tailwindcss";
 
+/* `light:` utilities apply when <html data-theme="light"> */
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
+/* Dark (immersive) is the default; light restores the editorial palette. */
+:root,
+[data-theme="dark"] {
+  --paper: #07080c;
+  --paper-2: #0c0e15;
+  --ink: #eef1f7;
+  --ink-2: #b4bacb;
+  --muted: #878ea1;
+  --line: #1d212c;
+  --accent: #7b93ff;
+  --accent-soft: #1a2147;
+  --sig-ink: #c9d3ff;
+  --halo: rgb(7 8 12 / 0.85);
+  color-scheme: dark;
+}
+[data-theme="light"] {
+  --paper: #f7f6f2;
+  --paper-2: #efede6;
+  --ink: #0c0c0d;
+  --ink-2: #3f3f46;
+  --muted: #63636b;
+  --line: #dedbd2;
+  --accent: #2140ff;
+  --accent-soft: #e3e7ff;
+  --sig-ink: #1b2a6b;
+  --halo: rgb(247 246 242 / 0.95);
+  color-scheme: light;
+}
+
 @theme inline {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   /* Mono only styles labels and snippets, so the system face saves a font download. */
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
   --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
 }
 
 @theme {
-  /* light editorial surface */
-  --color-paper: #f7f6f2;
-  --color-paper-2: #efede6;
-  --color-ink: #0c0c0d;
-  --color-ink-2: #3f3f46;
-  --color-muted: #63636b;
-  --color-line: #dedbd2;
-  --color-accent: #2140ff;
-  --color-accent-soft: #e3e7ff;
-
-  /* dark project showcases */
-  --color-night: #0b0d12;
-  --color-night-2: #11141b;
-  --color-night-3: #181c25;
-  --color-night-line: #262b37;
+  /* raised panels: stay dark in both themes (dark showcases on a light page) */
+  --color-night: #0b0e16;
+  --color-night-2: #11151f;
+  --color-night-3: #181d29;
+  --color-night-line: #252b3a;
   --color-night-text: #e7e9ef;
   --color-night-muted: #8e94a4;
-  --color-electric: #6b86ff;
+  --color-electric: #7b93ff;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -74,6 +105,58 @@
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+
+/* Backdrop for the WebGL scene: a CSS glow that shows before three.js loads
+   (and instead of it without WebGL), plus a vignette that keeps copy readable. */
+.scene-fallback {
+  background:
+    radial-gradient(ellipse 55% 45% at 72% 38%, rgb(62 91 255 / 0.22), transparent 70%),
+    radial-gradient(ellipse 35% 30% at 80% 70%, rgb(143 211 255 / 0.10), transparent 70%);
+}
+.scene-vignette {
+  background:
+    linear-gradient(90deg, rgb(7 8 12 / 0.72) 0%, rgb(7 8 12 / 0.35) 38%, transparent 62%),
+    radial-gradient(ellipse 90% 80% at 60% 45%, transparent 55%, rgb(7 8 12 / 0.75) 100%);
+}
+@media (max-width: 767px) {
+  .scene-vignette {
+    background: linear-gradient(180deg, rgb(7 8 12 / 0.2), rgb(7 8 12 / 0.6) 60%, rgb(7 8 12 / 0.8));
+  }
+}
+[data-theme="light"] .scene-fallback {
+  background:
+    radial-gradient(ellipse 55% 45% at 72% 38%, rgb(33 64 255 / 0.09), transparent 70%),
+    radial-gradient(ellipse 35% 30% at 80% 70%, rgb(61 123 255 / 0.06), transparent 70%);
+}
+[data-theme="light"] .scene-vignette {
+  background:
+    linear-gradient(90deg, rgb(247 246 242 / 0.86) 0%, rgb(247 246 242 / 0.45) 38%, transparent 62%),
+    radial-gradient(ellipse 90% 80% at 60% 45%, transparent 55%, rgb(247 246 242 / 0.8) 100%);
+}
+@media (max-width: 767px) {
+  [data-theme="light"] .scene-vignette {
+    background: linear-gradient(180deg, rgb(247 246 242 / 0.2), rgb(247 246 242 / 0.65) 60%, rgb(247 246 242 / 0.85));
+  }
+}
+
+/*
+ * Copy sits on a live 3D scene, so every line carries a soft halo in the
+ * surface colour. It is invisible on flat backgrounds and keeps text legible
+ * when a planet or a bright formation drifts behind it.
+ */
+main,
+footer,
+.halo-night {
+  text-shadow: 0 0 18px var(--halo), 0 0 8px var(--halo), 0 0 3px var(--halo);
+}
+/* dark panels keep a dark halo in both themes (text-shadow inherits resolved colours, hence the redeclare) */
+.halo-night {
+  --halo: rgb(11 14 22 / 0.85);
+}
+/* filled controls already have their own solid background */
+:is(main, footer) :is([class*="bg-ink"], [class*="bg-accent"], [class*="bg-night-text"], [class*="bg-paper"]) {
+  text-shadow: none;
 }
 
 /* Hero copy reveals with CSS so the first paint never waits on JavaScript. */
@@ -189,4 +272,12 @@
 
 @keyframes dash {
   to { stroke-dashoffset: -12; }
+}
+
+@keyframes scroll-cue {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(260%); }
+}
+.scroll-cue {
+  animation: scroll-cue 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
