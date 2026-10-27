@@ -13,6 +13,11 @@ npm run lint
 ```
 
 Pushing to `master` runs `.github/workflows/static.yml`, which lints, builds and deploys `./out` to GitHub Pages.
+Pull requests run the same install, lint and build without deploying.
+
+When dependencies change, update the lockfile with the npm version CI uses (Node 24, npm 11.19):
+`npx npm@11.19.0 install --package-lock-only`. Older npm 11 releases drop optional `@emnapi/*`
+entries, and `npm ci` then fails on CI.
 
 ## Updating content
 
