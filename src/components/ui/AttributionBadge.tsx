@@ -20,7 +20,7 @@ export function AttributionBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 font-mono text-[0.62rem] tracking-wider uppercase",
+        "inline-flex items-center gap-1.5 font-mono text-[0.68rem] tracking-wider uppercase",
         tone === "night" ? "text-night-muted" : "text-muted",
         className,
       )}

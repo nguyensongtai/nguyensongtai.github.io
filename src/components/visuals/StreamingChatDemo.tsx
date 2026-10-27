@@ -97,7 +97,7 @@ export function StreamingChatDemo() {
     <div ref={rootRef} className="flex h-full flex-col rounded-[14px] border border-night-line bg-night-2">
       <div className="flex items-center justify-between border-b border-night-line px-4 py-3">
         <p className="font-mono text-[0.68rem] text-night-muted">property-finder · streaming</p>
-        <p className="font-mono text-[0.6rem] tracking-wider text-night-muted uppercase">Simulated replay</p>
+        <p className="font-mono text-[0.68rem] tracking-wider text-night-muted uppercase">Simulated replay</p>
       </div>
 
       <div className="flex-1 space-y-3 px-4 py-4">

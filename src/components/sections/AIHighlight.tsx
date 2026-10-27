@@ -6,7 +6,7 @@ import { StreamingChatDemo } from "@/components/visuals/StreamingChatDemo";
 
 export function AIHighlight() {
   return (
-    <section id="ai" aria-labelledby="ai-heading" className="bg-night py-24 text-night-text lg:py-32">
+    <section id="ai" aria-labelledby="ai-heading" className="halo-night border-y border-line bg-night/40 py-24 text-night-text light:bg-night lg:py-32">
       <div className="shell">
         <SectionHeading id="ai-heading" tone="night" index="03" label="AI engineering" title={ai.title} intro={ai.intro} />
 

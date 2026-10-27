@@ -3,10 +3,11 @@
 import { AnimatePresence, m } from "motion/react";
 import { useMemo, useState } from "react";
 import { Tabs } from "@/components/ui/Tabs";
+import { RenderPipeline } from "@/components/visuals/RenderPipeline";
 import { cn } from "@/lib/cn";
 import { Chip, IllustrativeTag, Segmented, Skel } from "./primitives";
 
-type View = "search" | "admin";
+type View = "search" | "admin" | "performance";
 
 const listings = [
   { id: 1, title: "Riverside apartment", beds: 2, area: 68, type: "sale", photos: true, district: "District 7" },
@@ -52,7 +53,7 @@ function SearchView() {
           <Chip active={bedsTwoPlus} onClick={() => setBeds((v) => !v)}>2+ beds</Chip>
           <Chip active={photos} onClick={() => setPhotos((v) => !v)}>Has photos</Chip>
         </div>
-        <p className="mt-3 font-mono text-[0.62rem] text-night-muted" aria-live="polite">
+        <p className="mt-3 font-mono text-[0.68rem] text-night-muted" aria-live="polite">
           {results.length} result{results.length === 1 ? "" : "s"}
         </p>
         <ul className="mt-2 space-y-1.5">
@@ -79,7 +80,7 @@ function SearchView() {
                   <p className="truncate text-[0.78rem] text-night-text">
                     {l.title} · {l.beds}BR · {l.area} m²
                   </p>
-                  <p className="text-[0.66rem] text-night-muted">{l.district} · verified agent</p>
+                  <p className="text-[0.7rem] text-night-muted">{l.district} · verified agent</p>
                 </div>
                 <Skel className="h-2 w-10" />
               </m.li>
@@ -140,7 +141,7 @@ function SearchView() {
             </div>
           );
         })}
-        <p className="absolute bottom-2 left-3 font-mono text-[0.6rem] text-night-muted">
+        <p className="absolute bottom-2 left-3 font-mono text-[0.68rem] text-night-muted">
           Map-based discovery · click a cluster
         </p>
       </div>
@@ -187,14 +188,14 @@ function AdminView() {
             { id: "telesales", label: "Telesales" },
           ]}
         />
-        <p className="font-mono text-[0.62rem] text-night-muted">
+        <p className="font-mono text-[0.68rem] text-night-muted">
           scope: {p.scope} · commission: {p.commission ? "visible" : "hidden"} · verify: {p.verify ? "allowed" : "denied"}
         </p>
       </div>
       <div className="mt-3 overflow-x-auto rounded-lg border border-night-line">
         <table className="w-full min-w-[460px] text-left text-[0.75rem]">
           <caption className="sr-only">Transaction verification, filtered by role</caption>
-          <thead className="bg-night-2 font-mono text-[0.6rem] tracking-wider text-night-muted uppercase">
+          <thead className="bg-night-2 font-mono text-[0.68rem] tracking-wider text-night-muted uppercase">
             <tr>
               <th scope="col" className="px-3 py-2 font-normal">Transaction</th>
               <th scope="col" className="px-3 py-2 font-normal">Status</th>
@@ -208,7 +209,7 @@ function AdminView() {
               <tr key={t.id} className="border-t border-night-line">
                 <td className="px-3 py-2.5 font-mono text-night-text">{t.id}</td>
                 <td className="px-3 py-2.5">
-                  <span className={cn("rounded px-1.5 py-0.5 text-[0.66rem]", statusTone[t.status])}>{t.status}</span>
+                  <span className={cn("rounded px-1.5 py-0.5 text-[0.7rem]", statusTone[t.status])}>{t.status}</span>
                 </td>
                 <td className="px-3 py-2.5 text-night-muted">{t.agent}</td>
                 {p.commission ? <td className="px-3 py-2.5 text-night-muted">{t.commission}</td> : null}
@@ -216,7 +217,7 @@ function AdminView() {
                   <button
                     type="button"
                     disabled={!p.verify || t.status !== "Pending"}
-                    className="rounded border border-night-line px-2 py-1 text-[0.66rem] text-night-text transition-colors enabled:hover:border-electric enabled:hover:text-white disabled:cursor-not-allowed disabled:opacity-35"
+                    className="rounded border border-night-line px-2 py-1 text-[0.7rem] text-night-text transition-colors enabled:hover:border-electric enabled:hover:text-white disabled:cursor-not-allowed disabled:opacity-35"
                   >
                     Verify
                   </button>
@@ -247,8 +248,19 @@ export function MosoPreview() {
         items={[
           { id: "search", label: "Search & map" },
           { id: "admin", label: "Admin · RBAC" },
+          { id: "performance", label: "Performance" },
         ]}
-        renderPanel={(v) => (v === "search" ? <SearchView /> : <AdminView />)}
+        renderPanel={(v) =>
+          v === "search" ? (
+            <SearchView />
+          ) : v === "admin" ? (
+            <AdminView />
+          ) : (
+            <div className="max-w-xl">
+              <RenderPipeline />
+            </div>
+          )
+        }
       />
     </div>
   );

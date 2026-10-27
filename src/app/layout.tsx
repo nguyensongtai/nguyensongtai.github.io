@@ -4,7 +4,10 @@ import { MotionProvider } from "@/components/motion/MotionProvider";
 import { profile } from "@/content/portfolio";
 import "./globals.css";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+// "optional": fast connections still get Geist (it arrives within the block period);
+// slow ones keep the metric-matched fallback instead of swapping late, which
+// otherwise shifts the oversized headline and re-registers it as the LCP.
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "optional" });
 // Every serif use is italic, so only that file is shipped. Not preloaded: it is
 // an accent face, and Geist (the LCP text) should get the bandwidth first.
 const instrumentSerif = Instrument_Serif({
@@ -56,8 +59,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f7f6f2",
-  colorScheme: "light",
+  themeColor: "#07080c",
+  colorScheme: "dark",
 };
 
 const personJsonLd = {
@@ -76,9 +79,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      data-theme="dark"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${instrumentSerif.variable}`}
     >
       <head>
+        {/* Apply the saved theme before first paint so there is no flash. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem("theme");if(t==="light")document.documentElement.dataset.theme="light"}catch(e){}`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}

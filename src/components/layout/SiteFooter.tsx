@@ -4,7 +4,7 @@ import { SignatureArt } from "./SignatureArt";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-line">
+    <footer className="relative z-10 border-t border-line">
       <div className="shell flex flex-col gap-10 py-14 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="eyebrow mb-3 text-muted">Thanks for reading</p>

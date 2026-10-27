@@ -41,7 +41,7 @@ export function Signature({ name, children }: { name: string; children: ReactNod
       onClick={replay}
       title="Replay"
       aria-label={`Signature of ${name}. Replay the animation`}
-      className="sig -ml-1 block cursor-pointer rounded-md p-1 text-[#1b2a6b]"
+      className="sig -ml-1 block cursor-pointer rounded-md p-1 text-[var(--sig-ink)]"
     >
       {children}
     </button>

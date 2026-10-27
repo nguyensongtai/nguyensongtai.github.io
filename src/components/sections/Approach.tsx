@@ -24,7 +24,7 @@ function PrincipleBody({ p }: { p: Principle }) {
         ))}
       </ul>
       <figure className="mt-8 overflow-hidden rounded-xl border border-night-line bg-night">
-        <figcaption className="border-b border-night-line px-4 py-2 font-mono text-[0.62rem] tracking-wider text-night-muted uppercase">
+        <figcaption className="border-b border-night-line px-4 py-2 font-mono text-[0.68rem] tracking-wider text-night-muted uppercase">
           {p.snippet.label}
         </figcaption>
         <pre className="overflow-x-auto px-4 py-4 font-mono text-[0.78rem] leading-relaxed text-night-text">

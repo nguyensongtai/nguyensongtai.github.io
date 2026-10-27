@@ -35,6 +35,19 @@ All copy, metrics, case studies, principles and the timeline live in
   system monospace stack. Removing Geist Mono took median mobile LCP from ~2.7s to ~2.4s
   (Lighthouse, simulated slow 4G, gzip).
 - `experimental.inlineCss` was tested and made LCP worse on this page, so CSS stays external.
+- Geist uses `display: "optional"`: on a slow first visit the fallback face stays rather than
+  swapping late, which keeps LCP stable.
+
+## 3D scene
+
+- `src/components/scene/` holds a three.js backdrop: one particle system that morphs into a
+  formation per section (`formations.ts`), a nebula, a starfield that streaks during the warp
+  between sections, and procedurally shaded planets (`planets.ts`, no textures).
+- three.js is imported only after the page is idle, so it never delays the first paint. Particle
+  count adapts to the device and frame rate; reduced motion renders one still frame.
+- Dark is the default theme; the toggle stores the choice in `localStorage` and the scene
+  re-colours live. Copy over the scene carries a soft halo in the surface colour (`--halo`)
+  for legibility.
 - The footer signature is SVG outlines generated from Great Vibes (SIL OFL 1.1), stored in
   `src/components/layout/signature-data.ts`. CSS draws it stroke by stroke, so no signature
   font is downloaded. It stays fully visible without JavaScript or with reduced motion.

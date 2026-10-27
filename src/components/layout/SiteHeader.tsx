@@ -4,6 +4,7 @@ import { AnimatePresence, m } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { navigation, profile } from "@/content/portfolio";
 import { ArrowDown, Close, Menu } from "@/components/ui/icons";
+import { ThemeToggle } from "./ThemeToggle";
 import { cn } from "@/lib/cn";
 
 function useActiveSection(ids: string[]) {
@@ -28,20 +29,13 @@ const sectionIds = navigation.map((n) => n.href.slice(1));
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
-  const [overDark, setOverDark] = useState(false);
   const [open, setOpen] = useState(false);
   const active = useActiveSection(sectionIds);
   const menuRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const dark = document.getElementById("ai");
-    const onScroll = () => {
-      setScrolled(window.scrollY > 8);
-      // Switch to the dark header while it sits over the dark AI band.
-      const r = dark?.getBoundingClientRect();
-      setOverDark(!!r && r.top <= 64 && r.bottom >= 64);
-    };
+    const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -81,18 +75,14 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,color] duration-300",
-        overDark && !open
-          ? "dark-header border-b border-night-line bg-night/80 text-white backdrop-blur-md"
-          : scrolled || open
-            ? "border-b border-line bg-paper/85 backdrop-blur-md"
-            : "border-b border-transparent",
+        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-300",
+        scrolled || open ? "border-b border-line bg-paper/70 backdrop-blur-md" : "border-b border-transparent",
       )}
     >
       <div className="shell flex h-16 items-center gap-6">
         <a href="#top" className="flex items-baseline gap-2 text-[0.95rem] font-semibold tracking-[-0.02em]">
           {profile.name}
-          <span className={cn("eyebrow hidden md:inline", overDark && !open ? "text-night-muted" : "text-muted")}>Frontend</span>
+          <span className="eyebrow hidden text-muted md:inline">Frontend</span>
         </a>
 
         <nav aria-label="Primary" className="ml-auto hidden md:block">
@@ -106,9 +96,7 @@ export function SiteHeader() {
                     aria-current={isActive ? "true" : undefined}
                     className={cn(
                       "relative text-[0.88rem] transition-colors",
-                      overDark && !open
-                        ? isActive ? "text-white" : "text-night-muted hover:text-white"
-                        : isActive ? "text-ink" : "text-muted hover:text-ink",
+                      isActive ? "text-ink" : "text-muted hover:text-ink",
                     )}
                   >
                     {item.label}
@@ -126,13 +114,11 @@ export function SiteHeader() {
           </ul>
         </nav>
 
+        <ThemeToggle className="ml-auto md:ml-0" />
         <a
           href={profile.cv}
           download
-          className={cn(
-            "hidden h-9 items-center gap-1.5 rounded-full px-4 text-[0.82rem] font-medium transition-colors hover:bg-accent hover:text-white md:inline-flex",
-            overDark && !open ? "bg-white text-night" : "bg-ink text-paper",
-          )}
+          className="hidden h-9 items-center gap-1.5 rounded-full bg-ink px-4 text-[0.82rem] font-medium text-paper transition-colors hover:bg-accent md:inline-flex"
         >
           Download CV <ArrowDown width={14} height={14} />
         </a>
@@ -140,7 +126,7 @@ export function SiteHeader() {
         <button
           ref={toggleRef}
           type="button"
-          className="-mr-2 ml-auto inline-flex h-10 w-10 items-center justify-center rounded-full md:hidden"
+          className="-mr-2 inline-flex h-10 w-10 items-center justify-center rounded-full md:hidden"
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}

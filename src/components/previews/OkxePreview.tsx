@@ -56,7 +56,7 @@ function SearchView() {
         <Chip active={recent} onClick={() => setRecent((v) => !v)}>2020 or newer</Chip>
         <Chip active={video} onClick={() => setVideo((v) => !v)}>Has video</Chip>
       </div>
-      <p className="mt-3 font-mono text-[0.62rem] text-night-muted" aria-live="polite">
+      <p className="mt-3 font-mono text-[0.68rem] text-night-muted" aria-live="polite">
         {results.length} listing{results.length === 1 ? "" : "s"} · media lazy-loads on scroll
       </p>
       <ul className="mt-2 grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-6">
@@ -106,7 +106,7 @@ function SellerView() {
     <div className="overflow-x-auto rounded-lg border border-night-line">
       <table className="w-full min-w-[420px] text-left text-[0.75rem]">
         <caption className="sr-only">Seller dashboard listings</caption>
-        <thead className="bg-night-2 font-mono text-[0.6rem] tracking-wider text-night-muted uppercase">
+        <thead className="bg-night-2 font-mono text-[0.68rem] tracking-wider text-night-muted uppercase">
           <tr>
             <th scope="col" className="px-3 py-2 font-normal">Listing</th>
             <th scope="col" className="px-3 py-2 font-normal">Status</th>
@@ -121,7 +121,7 @@ function SellerView() {
               <td className="px-3 py-2.5">
                 <span
                   className={cn(
-                    "rounded px-1.5 py-0.5 text-[0.66rem]",
+                    "rounded px-1.5 py-0.5 text-[0.7rem]",
                     x.status === "Active" && "bg-emerald-300/10 text-emerald-300",
                     x.status === "In review" && "bg-amber-300/10 text-amber-300",
                     x.status === "Sold" && "bg-night-3 text-night-muted",
@@ -136,7 +136,7 @@ function SellerView() {
                   type="button"
                   disabled={x.status !== "Active"}
                   onClick={() => markSold(x.id)}
-                  className="rounded border border-night-line px-2 py-1 text-[0.66rem] text-night-text enabled:hover:border-electric disabled:opacity-35"
+                  className="rounded border border-night-line px-2 py-1 text-[0.7rem] text-night-text enabled:hover:border-electric disabled:opacity-35"
                 >
                   Mark sold
                 </button>
