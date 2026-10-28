@@ -6,6 +6,8 @@ const nextConfig: NextConfig = {
   images: { unoptimized: true },
   reactStrictMode: true,
   poweredByHeader: false,
+  // one root layout per language, so the 404 page needs its own document
+  experimental: { globalNotFound: true },
   turbopack: {
     rules: {
       "*.css": {

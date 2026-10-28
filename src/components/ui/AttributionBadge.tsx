@@ -1,18 +1,15 @@
 import type { Attribution } from "@/content/types";
 import { cn } from "@/lib/cn";
 
-const copy: Record<Attribution, string> = {
-  personal: "My work",
-  outcome: "Outcome of my work",
-  team: "Product / team scale",
-};
-
 export function AttributionBadge({
   attribution,
+  label,
   tone = "paper",
   className,
 }: {
   attribution: Attribution;
+  /** "My work" / "Outcome of my work" / "Product / team scale", in the page's language */
+  label: string;
   tone?: "paper" | "night";
   className?: string;
 }) {
@@ -32,7 +29,7 @@ export function AttributionBadge({
           strong ? (tone === "night" ? "bg-electric" : "bg-accent") : "border border-current",
         )}
       />
-      {copy[attribution]}
+      {label}
     </span>
   );
 }

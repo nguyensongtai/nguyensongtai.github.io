@@ -2,19 +2,19 @@
 
 import { AnimatePresence, m } from "motion/react";
 import { useState } from "react";
-import { principles, toolkit } from "@/content/portfolio";
+import type { Content } from "@/content";
 import type { Principle } from "@/content/types";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { cn } from "@/lib/cn";
 
-function PrincipleBody({ p }: { p: Principle }) {
+function PrincipleBody({ p, inPractice }: { p: Principle; inPractice: string }) {
   return (
     <div>
       <p className="font-serif text-[clamp(1.6rem,2.6vw,2.3rem)] leading-[1.15] tracking-[-0.01em] italic">
         “{p.statement}”
       </p>
-      <h4 className="eyebrow mt-8 text-muted">In practice</h4>
+      <h4 className="eyebrow mt-8 text-muted">{inPractice}</h4>
       <ul className="mt-3 space-y-2.5">
         {p.practice.map((item) => (
           <li key={item} className="flex gap-3 leading-snug text-ink-2">
@@ -35,19 +35,27 @@ function PrincipleBody({ p }: { p: Principle }) {
   );
 }
 
-export function Approach() {
+export function Approach({
+  principles,
+  toolkit,
+  labels,
+}: {
+  principles: Content["principles"];
+  toolkit: Content["toolkit"];
+  labels: Content["ui"]["approach"];
+}) {
   const [active, setActive] = useState(principles[0].id);
   const current = principles.find((p) => p.id === active)!;
 
   return (
-    <section id="approach" aria-labelledby="approach-heading" className="border-t border-line bg-paper-2/50 py-24 lg:py-32">
-      <div className="shell">
+    <section id="approach" aria-labelledby="approach-heading" className="shell pb-24">
+      <div className="glass p-6 sm:p-10 lg:p-14">
         <SectionHeading
           id="approach-heading"
-          index="02"
-          label="Engineering approach"
-          title="How I think about frontend work."
-          intro="Six areas I'm consistently trusted with, each backed by work I've shipped. Select one to see what it looks like in practice."
+          index="05"
+          label={labels.label}
+          title={labels.title}
+          intro={labels.intro}
         />
 
         <div className="mt-16 grid gap-10 lg:grid-cols-12">
@@ -94,7 +102,7 @@ export function Approach() {
                         className="overflow-hidden lg:hidden"
                       >
                         <div className="pb-8">
-                          <PrincipleBody p={p} />
+                          <PrincipleBody p={p} inPractice={labels.inPractice} />
                         </div>
                       </m.div>
                     ) : null}
@@ -114,7 +122,7 @@ export function Approach() {
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.25 }}
                 >
-                  <PrincipleBody p={current} />
+                  <PrincipleBody p={current} inPractice={labels.inPractice} />
                 </m.div>
               </AnimatePresence>
             </div>
@@ -124,8 +132,8 @@ export function Approach() {
         <Reveal className="mt-24">
           <div className="grid gap-8 border-t border-line pt-8 lg:grid-cols-12">
             <div className="lg:col-span-3">
-              <h3 className="eyebrow text-muted">Toolkit</h3>
-              <p className="mt-2 text-[0.88rem] text-muted">What I use in production. No percentage bars.</p>
+              <h3 className="eyebrow text-muted">{labels.toolkit}</h3>
+              <p className="mt-2 text-[0.88rem] text-muted">{labels.toolkitNote}</p>
             </div>
             <dl className="grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:col-span-9 lg:grid-cols-3">
               {toolkit.map((g) => (

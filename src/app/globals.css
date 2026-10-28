@@ -6,16 +6,15 @@
 /* Dark (immersive) is the default; light restores the editorial palette. */
 :root,
 [data-theme="dark"] {
-  --paper: #07080c;
-  --paper-2: #0c0e15;
-  --ink: #eef1f7;
-  --ink-2: #b4bacb;
-  --muted: #878ea1;
-  --line: #1d212c;
-  --accent: #7b93ff;
-  --accent-soft: #1a2147;
+  --paper: #0a1128;
+  --paper-2: #0f1835;
+  --ink: #f2f5ff;
+  --ink-2: #c5cde6;
+  --muted: #8f9abd;
+  --line: #223058;
+  --accent: #5b8cff;
+  --accent-soft: #1a2a5c;
   --sig-ink: #c9d3ff;
-  --halo: rgb(7 8 12 / 0.85);
   color-scheme: dark;
 }
 [data-theme="light"] {
@@ -28,7 +27,6 @@
   --accent: #2140ff;
   --accent-soft: #e3e7ff;
   --sig-ink: #1b2a6b;
-  --halo: rgb(247 246 242 / 0.95);
   color-scheme: light;
 }
 
@@ -107,56 +105,107 @@
   text-transform: uppercase;
 }
 
-/* Backdrop for the WebGL scene: a CSS glow that shows before three.js loads
-   (and instead of it without WebGL), plus a vignette that keeps copy readable. */
-.scene-fallback {
-  background:
-    radial-gradient(ellipse 55% 45% at 72% 38%, rgb(62 91 255 / 0.22), transparent 70%),
-    radial-gradient(ellipse 35% 30% at 80% 70%, rgb(143 211 255 / 0.10), transparent 70%);
+/* ---- the journey ---- */
+/* Illustrated stand-in for the 3D scene: before three.js loads and without WebGL. */
+.journey-fallback {
+  --jf-glow: #ff9a5c;
+  --jf-city: #10162b;
+  --jf-far: #161c38;
+  --jf-mid: #10152b;
+  --jf-near: #0a0e1d;
+  --jf-road: #2b3355;
+  background: linear-gradient(180deg, #04060f 0%, #0b1230 45%, #2a2a55 62%, #10152b 63%);
 }
-.scene-vignette {
-  background:
-    linear-gradient(90deg, rgb(7 8 12 / 0.72) 0%, rgb(7 8 12 / 0.35) 38%, transparent 62%),
-    radial-gradient(ellipse 90% 80% at 60% 45%, transparent 55%, rgb(7 8 12 / 0.75) 100%);
+[data-theme="light"] .journey-fallback {
+  --jf-glow: #ffb46b;
+  --jf-city: #8790b3;
+  --jf-far: #a9b2cf;
+  --jf-mid: #8e99bb;
+  --jf-near: #75809f;
+  --jf-road: #5b6485;
+  background: linear-gradient(180deg, #c9d6f0 0%, #e9e4ef 45%, #f7dcc4 62%, #8e99bb 63%);
 }
-@media (max-width: 767px) {
-  .scene-vignette {
-    background: linear-gradient(180deg, rgb(7 8 12 / 0.2), rgb(7 8 12 / 0.6) 60%, rgb(7 8 12 / 0.8));
+
+/* Solid-enough panels: long copy never sits directly on the moving scene. */
+.glass {
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  box-shadow: 0 40px 90px -50px rgb(0 0 0 / 0.75);
+}
+@media (min-width: 768px) {
+  .glass {
+    background: color-mix(in srgb, var(--paper) 82%, transparent);
+    backdrop-filter: blur(14px) saturate(1.15);
   }
 }
-[data-theme="light"] .scene-fallback {
-  background:
-    radial-gradient(ellipse 55% 45% at 72% 38%, rgb(33 64 255 / 0.09), transparent 70%),
-    radial-gradient(ellipse 35% 30% at 80% 70%, rgb(61 123 255 / 0.06), transparent 70%);
+[data-theme="light"] .glass {
+  box-shadow: 0 30px 70px -45px rgb(27 42 107 / 0.35);
 }
-[data-theme="light"] .scene-vignette {
-  background:
-    linear-gradient(90deg, rgb(247 246 242 / 0.86) 0%, rgb(247 246 242 / 0.45) 38%, transparent 62%),
-    radial-gradient(ellipse 90% 80% at 60% 45%, transparent 55%, rgb(247 246 242 / 0.8) 100%);
+
+/* Hero copy sits over the scene: a scrim from the left (desktop) or the bottom (phones). */
+.hero-scrim {
+  background: linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--paper) 55%, transparent) 40%, color-mix(in srgb, var(--paper) 92%, transparent) 78%);
 }
-@media (max-width: 767px) {
-  [data-theme="light"] .scene-vignette {
-    background: linear-gradient(180deg, rgb(247 246 242 / 0.2), rgb(247 246 242 / 0.65) 60%, rgb(247 246 242 / 0.85));
+@media (min-width: 768px) {
+  /* left for the copy, plus top and bottom bands for the meta row and the scroll cue */
+  .hero-scrim {
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--paper) 78%, transparent) 0%, transparent 24%, transparent 80%, color-mix(in srgb, var(--paper) 82%, transparent) 100%),
+      linear-gradient(90deg, color-mix(in srgb, var(--paper) 88%, transparent) 0%, color-mix(in srgb, var(--paper) 62%, transparent) 38%, transparent 64%);
   }
 }
 
-/*
- * Copy sits on a live 3D scene, so every line carries a soft halo in the
- * surface colour. It is invisible on flat backgrounds and keeps text legible
- * when a planet or a bright formation drifts behind it.
- */
-main,
-footer,
-.halo-night {
-  text-shadow: 0 0 18px var(--halo), 0 0 8px var(--halo), 0 0 3px var(--halo);
+/* Labels pinned to points in the 3D scene (positioned from JS, decorative only). */
+.journey-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  translate: -50% -150%;
+  opacity: 0;
+  padding: 3px 10px;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 999px;
+  background: rgb(11 16 32 / 0.72);
+  color: #dfe6ff;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: opacity 0.3s;
+  will-change: transform;
 }
-/* dark panels keep a dark halo in both themes (text-shadow inherits resolved colours, hence the redeclare) */
-.halo-night {
-  --halo: rgb(11 14 22 / 0.85);
+.journey-label--year {
+  color: #ffd9a8;
 }
-/* filled controls already have their own solid background */
-:is(main, footer) :is([class*="bg-ink"], [class*="bg-accent"], [class*="bg-night-text"], [class*="bg-paper"]) {
-  text-shadow: none;
+@media (max-width: 767px) {
+  /* on phones the horizon sits behind the hero copy */
+  .journey-label--year {
+    display: none;
+  }
+}
+.rail-label {
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+}
+
+@keyframes journey-load {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(250%); }
+}
+.journey-loader {
+  position: relative;
+  width: 28px;
+  height: 2px;
+  overflow: hidden;
+  background: rgb(255 255 255 / 0.2);
+}
+.journey-loader::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: #ffb46b;
+  animation: journey-load 1.1s ease-in-out infinite;
 }
 
 /* Hero copy reveals with CSS so the first paint never waits on JavaScript. */
@@ -173,6 +222,14 @@ footer,
   overflow: hidden;
   padding-bottom: 0.08em;
   margin-bottom: -0.08em;
+}
+/* Vietnamese stacks diacritics above the cap height (ầ, ắ, ề): give them room, or the mask clips them. */
+:lang(vi) .line-mask {
+  padding-top: 0.22em;
+  margin-top: -0.22em;
+}
+:lang(vi) :is(h1, h2, .hero-quote) {
+  line-height: 1.12;
 }
 .line-mask > span {
   display: inline-block;

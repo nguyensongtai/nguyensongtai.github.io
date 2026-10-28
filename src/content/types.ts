@@ -50,12 +50,13 @@ export interface Principle {
   snippet: { label: string; code: string };
 }
 
-export interface Role {
-  company: string;
+export interface JourneyStage {
+  id: string;
+  index: string;
+  era: string;
   title: string;
-  period: string;
-  start: string;
-  theme: string;
-  summary: string;
-  highlights: string[];
+  place: string;
+  lead: string;
+  points: string[];
+  tags: string[];
 }
