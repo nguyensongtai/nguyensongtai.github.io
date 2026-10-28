@@ -22,7 +22,7 @@ export function PreviewFrame({ children, label }: { children: ReactNode; label: 
       whileInView={{ clipPath: "inset(0% 0% 0% 0% round 18px)", opacity: 1 }}
       viewport={{ once: true, margin: "0px 0px -12% 0px" }}
       transition={{ duration: 0.9, ease }}
-      className="halo-night overflow-hidden rounded-[18px] bg-night/85 text-night-text backdrop-blur-md light:bg-night"
+      className="overflow-hidden rounded-[18px] bg-night/85 text-night-text backdrop-blur-md light:bg-night"
     >
       <Spotlight className="rounded-[18px] border border-night-line p-4 sm:p-6 lg:p-8">
         <m.div style={{ y }} className="relative z-10">

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Check, Copy } from "@/components/ui/icons";
 
-export function CopyEmail({ email }: { email: string }) {
+export function CopyEmail({ email, label, done }: { email: string; label: string; done: string }) {
   const [copied, setCopied] = useState(false);
   const copy = async () => {
     try {
@@ -21,7 +21,7 @@ export function CopyEmail({ email }: { email: string }) {
       className="inline-flex h-11 items-center gap-2 rounded-full border border-ink/15 px-4 text-[0.88rem] transition-colors hover:border-ink"
     >
       {copied ? <Check /> : <Copy />}
-      <span aria-live="polite">{copied ? "Copied" : "Copy email"}</span>
+      <span aria-live="polite">{copied ? done : label}</span>
     </button>
   );
 }

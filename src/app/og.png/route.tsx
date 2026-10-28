@@ -16,7 +16,7 @@ export function GET() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#07080c",
+          background: "#0a1128",
           color: "#eef1f7",
           padding: "72px 80px",
         }}
@@ -26,9 +26,9 @@ export function GET() {
           <span>HO CHI MINH CITY · UTC+7</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 92, fontWeight: 700, letterSpacing: -4, lineHeight: 1 }}>I build performant</div>
-          <div style={{ display: "flex", fontSize: 92, fontWeight: 700, letterSpacing: -4, lineHeight: 1.05 }}>
-            web products that&nbsp;<span style={{ color: "#7b93ff" }}>scale.</span>
+          <div style={{ fontSize: 80, fontWeight: 700, letterSpacing: -3, lineHeight: 1 }}>“Every great developer starts</div>
+          <div style={{ display: "flex", fontSize: 80, fontWeight: 700, letterSpacing: -3, lineHeight: 1.08 }}>
+            with&nbsp;<span style={{ color: "#7b93ff" }}>a single line of code.”</span>
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", fontSize: 26 }}>

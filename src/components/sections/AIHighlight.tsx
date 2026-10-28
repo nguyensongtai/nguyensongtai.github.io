@@ -1,14 +1,14 @@
-import { ai } from "@/content/portfolio";
+import type { Content } from "@/content";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { AgentDiagram } from "@/components/visuals/AgentDiagram";
 import { StreamingChatDemo } from "@/components/visuals/StreamingChatDemo";
 
-export function AIHighlight() {
+export function AIHighlight({ ai, label }: { ai: Content["ai"]; label: string }) {
   return (
-    <section id="ai" aria-labelledby="ai-heading" className="halo-night border-y border-line bg-night/40 py-24 text-night-text light:bg-night lg:py-32">
-      <div className="shell">
-        <SectionHeading id="ai-heading" tone="night" index="03" label="AI engineering" title={ai.title} intro={ai.intro} />
+    <section id="ai" aria-labelledby="ai-heading" className="shell pb-24">
+      <div className="rounded-[24px] border border-night-line bg-night/95 p-6 text-night-text sm:p-10 lg:p-14">
+        <SectionHeading id="ai-heading" tone="night" index="04" label={label} title={ai.title} intro={ai.intro} />
 
         <div className="mt-16 grid gap-10 lg:grid-cols-12">
           <ol className="space-y-8 lg:col-span-5">

@@ -1,4 +1,4 @@
-import type { CaseStudy, Metric, Principle, Role } from "./types";
+import type { CaseStudy, JourneyStage, Principle } from "./types";
 
 /**
  * Single source of truth for the site. Every figure here is taken from the CV
@@ -6,7 +6,7 @@ import type { CaseStudy, Metric, Principle, Role } from "./types";
  */
 export const profile = {
   name: "Nguyen Song Tai",
-  role: "Senior Frontend Engineer",
+  role: "Frontend Developer",
   years: "5+",
   location: "Ho Chi Minh City, Vietnam",
   timezone: "UTC+7",
@@ -15,55 +15,107 @@ export const profile = {
   email: "tainguyen06061999@gmail.com",
   cv: "/NguyenSongTai-CV.pdf",
   focus: ["React", "Next.js", "TypeScript", "Web Performance", "AI Integration"],
-  headline: { lead: "I build performant", tail: "web products that", accent: "scale." },
+  quote: { lead: "Every great developer starts with", accent: "a single line of code." },
   intro:
-    "From frontend architecture and performance optimization to AI-powered experiences, I turn complex product requirements into reliable, user-focused interfaces.",
+    "I build modern web products with React, Next.js and TypeScript, focused on user experience, scalable interface architecture and application performance.",
   links: {
     linkedin: "https://www.linkedin.com/in/tainguyen99/",
     github: "https://github.com/nguyensongtai",
     source: "https://github.com/nguyensongtai/nguyensongtai.github.io",
   },
-} as const;
+};
 
 export const navigation = [
-  { href: "#work", label: "Work" },
+  { href: "#stage-1", label: "Journey" },
+  { href: "#projects", label: "Projects" },
   { href: "#approach", label: "Approach" },
-  { href: "#ai", label: "AI" },
-  { href: "#experience", label: "Experience" },
   { href: "#contact", label: "Contact" },
-] as const;
+];
 
-export const impact: Metric[] = [
+/**
+ * The five stops of the journey. Every fact comes from the CV; the narrative
+ * lines only frame them.
+ */
+export const journey: JourneyStage[] = [
   {
-    value: "~40%",
-    label: "lower mobile LCP on moso.vn",
-    context: "Streaming SSR, hydration, code splitting, image/font loading and CDN caching.",
-    attribution: "personal",
+    id: "stage-1",
+    index: "01",
+    era: "2017 — 2020",
+    title: "The first lines of code",
+    place: "University of Science, VNU-HCM · College Diploma in Information Technology",
+    lead: "It started in a small room at night: a screen, a text editor and the first page that rendered.",
+    points: [
+      "Studied Information Technology at the University of Science, VNU-HCM",
+      "Got into programming through building web interfaces",
+      "Built my foundations in HTML, CSS and JavaScript",
+    ],
+    tags: ["HTML", "CSS", "JavaScript"],
   },
   {
-    value: "~30%",
-    label: "organic traffic growth in 6 months",
-    context: "After the technical SEO foundation shipped across listing and project pages.",
-    attribution: "outcome",
+    id: "stage-2",
+    index: "02",
+    era: "2020 — 2022",
+    title: "First steps in the industry",
+    place: "Sutrix Solutions · Frontend Developer",
+    lead: "A digital agency, enterprise clients and real deadlines: where interfaces became products other people relied on.",
+    points: [
+      "Built responsive, WCAG-compliant React interfaces for Nissan e-commerce and car-configurator portals and the Philippine Airlines booking flow",
+      "Delivered client projects on fixed agency deadlines under strict QA, security and brand-compliance review",
+      "Learned to turn client requirements into features as part of a team",
+    ],
+    tags: ["React", "SCSS", "WCAG 2.1", "Responsive design"],
   },
   {
-    value: "9",
-    label: "production repos on my architecture standard",
-    context: "New-developer onboarding time cut by ~40%.",
-    attribution: "personal",
+    id: "stage-3",
+    index: "03",
+    era: "2022 — 2025",
+    title: "Building real products",
+    place: "OKXE · Ahasoft",
+    lead: "Two products used every day at scale: a motorcycle marketplace with 1.5M+ users, then a multi-tenant CRM for 10,000+ salons in Korea.",
+    points: [
+      "Complex business flows: listing creation, search and filters, checkout, the seller dashboard, booking calendars and data tables",
+      "Reusable building blocks: a shared module library at OKXE and a multi-theme component library at Ahasoft",
+      "Permissions and data flow across roles, with full per-tenant data isolation",
+      "Faster, easier-to-maintain code: ~30% faster listing pages, ~30% shorter release cycles, ~20% fewer UI defects",
+    ],
+    tags: ["Vue.js", "Vuetify", "Vue.js 3", "TypeScript"],
   },
   {
-    value: "10,000+",
-    label: "salons using CRM screens I built",
-    context: "Data tables, booking calendars and booking forms used daily by salon staff in Korea.",
-    attribution: "team",
+    id: "stage-4",
+    index: "04",
+    era: "2025 — now",
+    title: "Modern frontend engineering",
+    place: "MOSO · Software Engineer (Frontend)",
+    lead: "Leading frontend delivery of moso.vn, a PropTech marketplace with 24,000+ active listings: architecture, performance, SEO and AI features in production.",
+    points: [
+      "React, Next.js 15 and TypeScript, with React Server Components and streaming SSR",
+      "Component-driven development under one architecture standard, adopted by 9 production repositories",
+      "Technical SEO and Core Web Vitals: ~40% lower mobile LCP, Lighthouse performance 40 → 70",
+      "Bundle and loading work for mobile: code splitting, image and font loading, CDN caching",
+      "AI where it helps users: streaming chat, source-backed RAG search, a LangGraph agent with an MCP server",
+    ],
+    tags: ["React", "Next.js 15", "TypeScript", "Mantine", "Tailwind CSS", "Core Web Vitals", "JSON-LD", "LangGraph", "MCP"],
+  },
+  {
+    id: "stage-5",
+    index: "05",
+    era: "Next",
+    title: "Beyond the horizon",
+    place: "How I work, and where I'm heading",
+    lead: "From the top of the road the whole city is visible: the products, the people who use them, and the systems behind them.",
+    points: [
+      "Start from the product problem, then pick the rendering, data and component strategy that fits it",
+      "Treat code quality, performance and scalability as defaults, not clean-up work",
+      "Growing toward full-stack engineering: already hands-on with Node.js, Fastify, MongoDB and Elasticsearch behind moso.vn",
+    ],
+    tags: ["Node.js", "Fastify", "MongoDB", "Elasticsearch", "Docker"],
   },
 ];
 
 export const caseStudies: CaseStudy[] = [
   {
     id: "moso",
-    index: "01",
+    index: "03",
     title: "MOSO.vn",
     kicker: "PropTech platform",
     company: "MOSO",
@@ -231,7 +283,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     id: "okxe",
-    index: "03",
+    index: "01",
     title: "OKXE",
     kicker: "Motorcycle marketplace · Vietnam",
     company: "OKXE",
@@ -431,52 +483,6 @@ export const ai = {
   ],
 };
 
-export const experience: Role[] = [
-  {
-    company: "MOSO",
-    title: "Software Engineer (Frontend)",
-    period: "Apr 2025 — Present",
-    start: "2025",
-    theme: "Ownership",
-    summary: "Leading frontend delivery of moso.vn, from architecture to AI features in production.",
-    highlights: [
-      "Architecture standard across 9 production repositories",
-      "~40% lower mobile LCP · ~30% organic growth",
-      "Streaming AI chat, RAG search, LangGraph + MCP",
-    ],
-  },
-  {
-    company: "Ahasoft",
-    title: "Frontend Developer",
-    period: "Mar 2024 — Mar 2025",
-    start: "2024",
-    theme: "Complexity",
-    summary: "Multi-tenant B2B CRM used by staff across 10,000+ salons in Korea.",
-    highlights: ["RBAC with per-tenant isolation", "Multi-theme component library, ~20% fewer UI defects"],
-  },
-  {
-    company: "OKXE",
-    title: "Frontend Developer",
-    period: "Apr 2022 — Mar 2024",
-    start: "2022",
-    theme: "Scale",
-    summary: "Marketplace with 1.5M+ users and 2M+ listings.",
-    highlights: ["~30% faster listing page loads", "~30% shorter release cycles"],
-  },
-  {
-    company: "Sutrix Solutions",
-    title: "Frontend Developer",
-    period: "Nov 2020 — Mar 2022",
-    start: "2020",
-    theme: "Craft",
-    summary: "Agency work for enterprise clients, including Nissan and Philippine Airlines.",
-    highlights: [
-      "Responsive, WCAG-compliant React interfaces",
-      "Fixed deadlines under strict QA, security and brand review",
-    ],
-  },
-];
-
 export const toolkit: { group: string; items: string[] }[] = [
   { group: "Frontend", items: ["React", "Next.js 15", "React Server Components", "TypeScript", "JavaScript (ES6+)", "Vue.js 3", "Nuxt.js", "HTML5", "CSS3"] },
   { group: "UI & styling", items: ["Tailwind CSS", "Mantine", "SCSS", "Storybook", "Design systems", "Figma"] },
@@ -485,3 +491,85 @@ export const toolkit: { group: string; items: string[] }[] = [
   { group: "AI", items: ["OpenAI API", "Anthropic API", "MCP", "LangGraph"] },
   { group: "Backend & DevOps", items: ["Node.js", "Fastify", "MongoDB", "Elasticsearch", "Docker", "GitHub Actions"] },
 ];
+
+/** Page metadata, per language. */
+export const meta = {
+  lang: "en",
+  ogLocale: "en_US",
+  title: "Nguyen Song Tai — Frontend Developer",
+  description:
+    "Frontend Developer in Ho Chi Minh City with 5+ years building React, Next.js and TypeScript products. An interactive journey from the first line of code to frontend architecture, Core Web Vitals, technical SEO and AI features.",
+};
+
+/** Interface copy (labels, buttons, headings) that is not portfolio content. */
+export const ui = {
+  skip: "Skip to content",
+  header: {
+    brandRole: "Frontend",
+    primaryNav: "Primary",
+    mobileNav: "Mobile",
+    menu: "Site menu",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
+    downloadCv: "Download CV",
+    toDark: "Switch to dark theme",
+    toLight: "Switch to light theme",
+    language: "Tiếng Việt",
+    languageShort: "VI",
+  },
+  rail: { label: "Journey", start: "Start", contact: "Contact" },
+  hero: {
+    eyebrow: "The journey of a developer",
+    explore: "Explore the journey",
+    projects: "View projects",
+    downloadCv: "Download CV",
+    experience: "Experience",
+    years: "years · frontend",
+    focus: "Focus",
+    scroll: "Scroll to begin",
+  },
+  stage: { stop: "Stop", technologies: "Technologies" },
+  previewNote: "Project stop · interactive recreation with sample data, not a production screenshot",
+  caseStudy: {
+    role: "Role",
+    period: "Period",
+    stack: "Stack",
+    visit: "Visit",
+    challenge: "The challenge",
+    interface: "interface",
+    owned: "What I owned",
+    team: "Team & context",
+    decisions: "Key decisions",
+    outcomes: "Measured outcomes",
+    details: "Technical details",
+  },
+  attribution: { personal: "My work", outcome: "Outcome of my work", team: "Product / team scale" },
+  ai: { label: "AI engineering" },
+  approach: {
+    label: "Engineering approach",
+    title: "How I think about frontend work.",
+    intro:
+      "Six areas I'm consistently trusted with, each backed by work I've shipped. Select one to see what it looks like in practice.",
+    inPractice: "In practice",
+    toolkit: "Toolkit",
+    toolkitNote: "What I use in production. No percentage bars.",
+  },
+  contact: {
+    eyebrow: "End of the road",
+    label: "Contact",
+    lead: "Let's build something that",
+    accent: "performs.",
+    body: "I'm open to new opportunities. The fastest way to reach me is email. My CV has the full details.",
+    copy: "Copy email",
+    copied: "Copied",
+    downloadCv: "Download CV",
+    portrait: "Portrait of Nguyen Song Tai",
+  },
+  footer: {
+    thanks: "Thanks for reading",
+    built: "Designed and built by me with Next.js, TypeScript, Tailwind CSS and Motion.",
+    source: "View source",
+    dateLocale: "en-US",
+  },
+  canvas: { loading: "Loading the journey", next: "Next" },
+};
